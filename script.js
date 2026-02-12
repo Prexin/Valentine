@@ -35,13 +35,32 @@ document.querySelectorAll('.gallery-img').forEach(img => {
 });
 
 // ... rest of existing code ...
-// ... existing code ...
+const music = document.getElementById('bg-music');
+let shouldResumeMusic = false;
 
-// Unmute music on first interaction (e.g., surprise button click)
+// Start music on first user interaction (required by browser autoplay policy).
 document.getElementById('surprise-btn').addEventListener('click', () => {
-    const music = document.getElementById('bg-music');
+    if (!music) return;
     music.muted = false;
-    music.volume = 0.3; // Low volume
-    music.play();
-    // ... rest of existing code ...
+    music.volume = 0.3;
+    music.play().catch(() => {});
+});
+
+// Pause when tab is not visible, resume when user comes back.
+document.addEventListener('visibilitychange', () => {
+    if (!music) return;
+    if (document.hidden) {
+        shouldResumeMusic = !music.paused;
+        music.pause();
+    } else if (shouldResumeMusic) {
+        music.play().catch(() => {});
+        shouldResumeMusic = false;
+    }
+});
+
+// Stop when user leaves page (close tab / navigate).
+window.addEventListener('pagehide', () => {
+    if (!music) return;
+    music.pause();
+    music.currentTime = 0;
 });
