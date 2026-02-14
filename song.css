@@ -1,0 +1,231 @@
+:root {
+  --theme-a: #bcbcbc;
+  --theme-b: #cfe5ff;
+  --theme-glow: rgba(125, 184, 255, 0.45);
+  --text-main: #ffffff;
+  --text-soft: rgba(255, 255, 255, 0.85);
+  --title-color: #365a94;
+  --subtitle-color: #4c6ea7;
+  --list-color: #365a94;
+  --list-active-color: #1f3c6c;
+  --link-color: #3a5f9e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: "Quicksand", sans-serif;
+  background: radial-gradient(circle at 20% 10%, #ffe9f3 0%, #f2f7ff 45%, #edf0ff 100%);
+  transition: background 0.7s ease;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  background: linear-gradient(120deg, var(--theme-a), var(--theme-b));
+  opacity: 0;
+  filter: blur(70px);
+  transform: scale(1.05);
+  transition: opacity 0.7s ease;
+  z-index: -2;
+}
+
+body.playing::before {
+  opacity: 0.65;
+  animation: pulseBg 6s ease-in-out infinite;
+}
+
+a {
+  text-decoration: none;
+  color: var(--link-color);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(58, 95, 158, 0.2);
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.playlist-box {
+  width: min(560px, 95vw);
+  padding: 30px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 45px rgba(30, 45, 75, 0.18);
+}
+
+h1 {
+  font-size: clamp(38px, 6vw, 54px);
+  color: var(--title-color);
+  margin: 0;
+  line-height: 1;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: var(--subtitle-color);
+  font-size: 14px;
+  letter-spacing: 0.4px;
+}
+
+.player-card {
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 20px;
+  background: linear-gradient(140deg, var(--theme-a), var(--theme-b));
+  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s ease;
+  box-shadow: 0 15px 35px var(--theme-glow);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.album-cover {
+  width: 100px;
+  height: 100px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease;
+}
+
+.player-card.animate {
+  transform: scale(1.02);
+  box-shadow: 0 18px 40px var(--theme-glow);
+}
+
+.album-cover.animate {
+  transform: rotate(3deg) scale(1.08);
+}
+
+#title {
+  margin: 0;
+  color: var(--text-main);
+}
+
+#artist {
+  margin: 6px 0;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.fill {
+  width: 0%;
+  height: 100%;
+  background: #ffffff;
+}
+
+.controls {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.controls button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.controls button:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.song-list {
+  margin-top: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.song-item {
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--list-color);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(85, 111, 155, 0.15);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.song-item:hover {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.song-item.active {
+  font-weight: 700;
+  color: var(--list-active-color);
+  box-shadow: 0 4px 14px rgba(60, 90, 130, 0.15);
+}
+
+@keyframes pulseBg {
+  0% {
+    transform: scale(1.02) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.08) rotate(3deg);
+  }
+  100% {
+    transform: scale(1.02) rotate(0deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .playlist-box {
+    padding: 20px;
+  }
+
+  .top {
+    gap: 12px;
+  }
+
+  .album-cover {
+    width: 84px;
+    height: 84px;
+  }
+}

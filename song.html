@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Song Reminds Me of U</title>
+  <link rel="stylesheet" href="song.css"/>
+   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="playlist-box">
+
+    <h1>Playlist</h1>
+    <p class="subtitle">songs that remind me of you</p>
+
+    <div class="player-card" id="playerCard">
+
+      <!-- Album + Info -->
+      <div class="top">
+        <img id="cover" class="album-cover"/>
+
+        <div>
+          <h2 id="title"></h2>
+          <p id="artist"></p>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress">
+        <span id="currentTime">0:00</span>
+
+        <div class="bar" onclick="setProgress(event)">
+          <div class="fill" id="progressFill"></div>
+        </div>
+
+        <span id="duration">0:00</span>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button onclick="prevSong()">⏮</button>
+        <button class="play" onclick="togglePlay()" id="playBtn">▶</button>
+        <button onclick="nextSong()">⏭</button>
+      </div>
+
+    </div>
+
+    <!-- Playlist -->
+    <div class="song-list" id="songList"></div>
+
+  </div>
+
+  <audio id="audio"></audio>
+  <script src="script.js"></script>
+  
+    <a href="index.html">BACK</a>
+
+</body>
+</html>
