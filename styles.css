@@ -10,6 +10,9 @@ body {
     color: #333;
     overflow-x: hidden;
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
@@ -40,7 +43,9 @@ p {
 }
 
 /* ... existing CSS ... */
-
+a {
+    text-decoration: none;
+}
 /* Enhanced Hero Image */
 .hero-img {
     width: 100%;
@@ -178,3 +183,5 @@ footer {
     .hero-img { max-width: 300px; }
     .message { padding: 15px; }
 }
+
+
